@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>One category</title>
+	<link th:href="style.css" rel="stylesheet" >
+</head>
+<body th:background = "review.jpg">
+	<div th:each="category: ${categories}">
+    	<header>
+        	<h1>List of <span th:text="${category.name}"></span></h1>
+    	</header>
+		<article id="reviews">
+			<div th:each="review: ${category.reviews}">
+				<h2>
+            		<a th:href="@{/review(id=${review.id})}" th:text="${review.title}"></a>
+        		</h2>
+    		</div>
+    	</article>
+    </div>
+    <footer>
+        <a href="http://localhost:8080/showCategories">Back to Categories</a>
+    </footer>
+</body>
+</html>

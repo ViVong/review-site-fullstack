@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Categories</title>
+	<link th:href="style.css" rel="stylesheet" >
+</head>
+<body th:background = "review.jpg">
+    <header>
+        <h1>List of All Categories</h1>
+    </header>
+	<article id="category">
+		<div th:each="category: ${categories}">
+        	<h2>
+            	<a th:href="@{/category(id=${category.id})}" th:text="${category.name}"></a>
+        	</h2>
+		</div>
+	</article>
+	<footer>
+        <a href="http://localhost:8080/">Sort by Reviews</a>
+    </footer>
+</body>
+</html>
