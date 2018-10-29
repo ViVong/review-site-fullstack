@@ -67,11 +67,11 @@ public class JPAMappingsTest {
 
 	@Test
 	public void shouldEstablishReviewToCategoryRelation() {
-		//category is owner
-		Review review1 = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content."));
-		Review review2 = reviewRepo.save(new Review(8, 12, "The second half of the review", "imagine.jpg", "Theres is still nothing in this content."));
+		Category category = new Category("Test Reviews");
 		
-		Category category = new Category("Test Reviews", review1, review2);
+		Review review1 = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content.", category));
+		Review review2 = reviewRepo.save(new Review(8, 12, "The second half of the review", "imagine.jpg", "Theres is still nothing in this content.", category));
+		
 		category = categoryRepo.save(category);
 		long categoryId = category.getId();
 		
@@ -85,10 +85,10 @@ public class JPAMappingsTest {
 	
 	@Test
 	public void shouldFindReviewsForCategories() {
-		Review review = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content."));
+		Category category = categoryRepo.save(new Category("Test Reviews"));
+		Category category2 = categoryRepo.save(new Category("Second Test Reviews"));
 		
-		Category category = categoryRepo.save(new Category("Test Reviews", review));
-		Category category2 = categoryRepo.save(new Category("Second Test Reviews", review));
+		Review review = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content.", category, category2));
 
 		entityManager.flush();
 		entityManager.clear();
@@ -100,11 +100,11 @@ public class JPAMappingsTest {
 	
 	@Test
 	public void shouldFindCoursesForReviewId() {
-		Review review = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content."));
-		long reviewId = review.getId();
+		Category category = categoryRepo.save(new Category("Test Reviews"));
+		Category category2 = categoryRepo.save(new Category("Second Test Reviews"));
 		
-		Category category = categoryRepo.save(new Category("Test Reviews", review));
-		Category category2 = categoryRepo.save(new Category("Second Test Reviews", review));
+		Review review = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content.", category, category2));
+		long reviewId = review.getId();
 		
 		entityManager.flush();
 		entityManager.clear();

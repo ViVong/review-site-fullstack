@@ -75,12 +75,12 @@ public class ReviewControllerMockMvcTest {
 	
 	@Test
 	public void shouldRouteToAllReviews() throws Exception{
-		mvc.perform(get("/reviews")).andExpect(view().name(is("reviews")));
+		mvc.perform(get("/")).andExpect(view().name(is("reviews")));
 	}
 	
 	@Test
 	public void shouldBeOkForAllReviews() throws Exception{
-		mvc.perform(get("/reviews")).andExpect(status().isOk());
+		mvc.perform(get("/")).andExpect(status().isOk());
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class ReviewControllerMockMvcTest {
 		Collection<Review> allReviews = Arrays.asList(review, anotherReview);
 		when(reviewRepo.findAll()).thenReturn(allReviews);
 		
-		mvc.perform(get("/reviews")).andExpect(model().attribute("reviews", is(allReviews)));
+		mvc.perform(get("/")).andExpect(model().attribute("reviews", is(allReviews)));
 	}
 	
 	@Test
