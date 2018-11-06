@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Category {
+public class Tag {
 	
 	@Id
 	@GeneratedValue
@@ -20,9 +20,9 @@ public class Category {
 	@ManyToMany(mappedBy = "categories")
 	private Collection<Review> reviews;
 	
-	protected Category() {}
+	protected Tag() {}
 	
-	public Category(String name, Review...reviews) {
+	public Tag(String name, Review...reviews) {
 		this.name = name;
 		this.reviews = new HashSet<>(Arrays.asList(reviews));
 	}
@@ -55,7 +55,7 @@ public class Category {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Tag other = (Tag) obj;
 		if (id != other.id)
 			return false;
 		return true;

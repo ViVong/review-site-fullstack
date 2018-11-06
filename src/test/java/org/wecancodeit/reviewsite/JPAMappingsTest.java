@@ -26,7 +26,7 @@ public class JPAMappingsTest {
 	private ReviewRepository reviewRepo;
 	
 	@Resource
-	private CategoryRepository categoryRepo;
+	private TagRepository categoryRepo;
 	
 	@Test
 	public void shouldSaveAndLoadReviews() {
@@ -54,20 +54,20 @@ public class JPAMappingsTest {
 	
 	@Test
 	public void shouldSaveAndLoadCategory() {
-		Category category = categoryRepo.save(new Category("Name"));
+		Tag category = categoryRepo.save(new Tag("Name"));
 		long categoryId = category.getId();
 		
 		entityManager.flush();
 		entityManager.clear();
 		
-		Optional<Category> result = categoryRepo.findById(categoryId);
+		Optional<Tag> result = categoryRepo.findById(categoryId);
 		category = result.get();
 		assertThat(category.getName(), is("Name"));
 	}
 
 	@Test
 	public void shouldEstablishReviewToCategoryRelation() {
-		Category category = new Category("Test Reviews");
+		Tag category = new Tag("Test Reviews");
 		
 		Review review1 = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content.", category));
 		Review review2 = reviewRepo.save(new Review(8, 12, "The second half of the review", "imagine.jpg", "Theres is still nothing in this content.", category));
@@ -78,30 +78,30 @@ public class JPAMappingsTest {
 		entityManager.flush();
 		entityManager.clear();
 		
-		Optional<Category> result = categoryRepo.findById(categoryId);
+		Optional<Tag> result = categoryRepo.findById(categoryId);
 		category = result.get();
 		assertThat(category.getReviews(), containsInAnyOrder(review1, review2));
 	}
 	
 	@Test
 	public void shouldFindReviewsForCategories() {
-		Category category = categoryRepo.save(new Category("Test Reviews"));
-		Category category2 = categoryRepo.save(new Category("Second Test Reviews"));
+		Tag category = categoryRepo.save(new Tag("Test Reviews"));
+		Tag category2 = categoryRepo.save(new Tag("Second Test Reviews"));
 		
 		Review review = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content.", category, category2));
 
 		entityManager.flush();
 		entityManager.clear();
 		
-		Collection<Category> isReview = categoryRepo.findByReviewsContains(review);
+		Collection<Tag> isReview = categoryRepo.findByReviewsContains(review);
 		
 		assertThat(isReview, containsInAnyOrder(category, category2));
 	}
 	
 	@Test
 	public void shouldFindCoursesForReviewId() {
-		Category category = categoryRepo.save(new Category("Test Reviews"));
-		Category category2 = categoryRepo.save(new Category("Second Test Reviews"));
+		Tag category = categoryRepo.save(new Tag("Test Reviews"));
+		Tag category2 = categoryRepo.save(new Tag("Second Test Reviews"));
 		
 		Review review = reviewRepo.save(new Review(4, 20, "A Test Review", "image.jpg", "Theres is nothing in this content.", category, category2));
 		long reviewId = review.getId();
@@ -109,7 +109,7 @@ public class JPAMappingsTest {
 		entityManager.flush();
 		entityManager.clear();
 		
-		Collection<Category> isReview = categoryRepo.findByReviewsId(reviewId);
+		Collection<Tag> isReview = categoryRepo.findByReviewsId(reviewId);
 		
 		assertThat(isReview, containsInAnyOrder(category, category2));
 	}

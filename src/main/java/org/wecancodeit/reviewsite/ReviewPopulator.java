@@ -12,17 +12,23 @@ public class ReviewPopulator implements CommandLineRunner{
 	private ReviewRepository reviewRepo;
 	
 	@Resource
-	private CategoryRepository categoryRepo;
+	private TagRepository categoryRepo;
+	
+	@Resource
+	private CommentRepository commentRepo;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Category top10 = new Category("Top 10s");
-		Category joke = new Category("Joke Reviews");
-		Category pieces = new Category("Short Pieces");
+		Tag top10 = new Tag("Top 10s");
+		Tag joke = new Tag("Joke Reviews");
+		Tag pieces = new Tag("Short Pieces");
 		top10 = categoryRepo.save(top10);
 		joke = categoryRepo.save(joke);
 		pieces = categoryRepo.save(pieces);
+		
+		Comment first = new Comment("M00t", "What is with this review ");
+		first = commentRepo.save(first);
 		
 		Review review = new Review( 8, 20, "A Review on Reviews", "/review.jpg", "Reviews are lame and I don't like them. However I must express how I feel about them and their ilk in the only way I know how. By writing reviews about them.", joke);
 		Review weather = new Review(8, 1, "Top 7 Weather to Stay Indoors To", "/rain.jpg", "10. Sleet 9. Hail 8. Snow 7. Rain 6. Blizzard 5. Tornados 4. Hurricanes", top10, joke);

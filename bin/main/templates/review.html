@@ -15,6 +15,16 @@
 	<h4>Published on: <span th:text="${review.date}"></span> </h4>
    	</header>
 	<p th:text="${review.content}"></p>
+	<form method="POST" th:action="@{/addComment}">
+  		<input type="text" name="username" placeholder="Enter your username">
+  		<input type="text" name="comment" placeholder="Enter your comment">
+  		<input type="hidden" name="id" th:value="${review.id}">
+  		<input type="submit" value="Add Tag">
+	</form>
+	<div id="comment" th:each="comment: ${review.comments}">
+		<p th:text="${comment.comment}"></p>
+		<p>&nbsp-<span th:text="${comment.user}"></span></p>
+	</div>
 	<article id="categories">
 		<div th:each="category: ${review.categories}">
 			<h2>

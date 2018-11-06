@@ -1,14 +1,17 @@
 package org.wecancodeit.reviewsite;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import static java.lang.String.format;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Review {
@@ -23,12 +26,16 @@ public class Review {
 	@Lob
 	private String content;
 	
+	@JsonIgnore
 	@ManyToMany
-	private Collection<Category> categories;
+	private Collection<Tag> categories;
+	
+	@ManyToMany
+	private Collection<Comment> comments;
 
     protected Review() {}
 
-    public Review(int month, int date, String title, String url, String content, Category...categories) {
+    public Review(int month, int date, String title, String url, String content, Tag...categories) {
 		this.month = month;
 		this.date = date;
 		this.title = title;
@@ -57,8 +64,29 @@ public class Review {
 		return id;
 	}
 	
-	public Collection<Category> getCategories() {
+	public void addCategory(Tag newCategory) {
+		this.categories.add(newCategory);
+	}
+	
+	public Collection<Tag> getCategories() {
 		return categories;
+	}
+	
+	public Collection<Comment> getComments() {
+		return comments;
+	}
+	
+	public void addComment(Comment newComment) {
+		this.comments.add(newComment);
+	}
+	
+	public Collection<String> getTagUrls(){
+		Collection<String> urls = new ArrayList<>();
+		for(Tag category: categories) {
+			urls.add(format("/reviews/%d/tags/%s", this.getId(), category.getName()));
+		}
+		
+		return urls;
 	}
 
 	@Override

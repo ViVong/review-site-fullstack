@@ -32,13 +32,13 @@ public class ReviewControllerMockMvcTest {
 	private ReviewRepository reviewRepo;
 	
 	@MockBean
-	private CategoryRepository categoryRepo;
+	private TagRepository categoryRepo;
 	
 	@Mock
-	private Category category;
+	private Tag category;
 	
 	@Mock
-	private Category anotherCategory;
+	private Tag anotherCategory;
 	
 	@Mock
 	private Review review;
@@ -130,7 +130,7 @@ public class ReviewControllerMockMvcTest {
 	
 	@Test
 	public void shouldPutAllCategoriesIntoModel() throws Exception{
-		Collection<Category> allCategories = Arrays.asList(category, anotherCategory);
+		Collection<Tag> allCategories = Arrays.asList(category, anotherCategory);
 		when(categoryRepo.findAll()).thenReturn(allCategories);
 		
 		mvc.perform(get("/showCategories")).andExpect(model().attribute("categories", is(allCategories)));

@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All Categories</title>
-	<link th:href="style.css" rel="stylesheet" >
+    <title>All Tags</title>
+	<link th:href="tagstyle.css" rel="stylesheet" >
 </head>
 <body th:background = "review.jpg">
     <header>
-        <h1>List of All Categories</h1>
+        <h1>List of All Tags</h1>
     </header>
-	<article id="category">
-		<div th:each="category: ${categories}">
-        	<h2>
-            	<a th:href="@{/category(id=${category.id})}" th:text="${category.name}"></a>
-        	</h2>
-		</div>
-	</article>
+	<div class="container">
+    </div>
+    <form method="POST" th:action="@{/addTag}">
+  	<input type="text" name="tagName" placeholder="Enter Tag Name">
+  	<input type="text" name="relatedReviews" placeholder="Enter name of related review">
+  	<input type="submit" value="Add Tag">
+  </form>
 	<footer>
         <a href="http://localhost:8080/">Sort by Reviews</a>
     </footer>
+    <script src="./js/Tag.js"></script>
 </body>
 </html>

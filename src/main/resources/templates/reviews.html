@@ -4,22 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All Reviews</title>
-	<link th:href="style.css" rel="stylesheet" >
+    <title>Reviews with AJAX</title>
+	<link th:href="reviewstyle.css" rel="stylesheet" >
 </head>
 <body th:background = "review.jpg">
-    <header>
-        <h1>A list of all Reviews</h1>
-    </header>
-	<article id="reviews">
-	<div th:each="review: ${reviews}">
-        <h3>
-            <a th:href="@{/review(id=${review.id})}" th:text="${review.title}"></a>
-        </h3>
-    </div>
-    </article>
+	<div class="container">
+		<header>
+			<h1>List of All Reviews</h1>
+		</header>
+	</div>
+    
     <footer>
-        <a href="http://localhost:8080/showCategories">Sort by Categories</a>
+        <a href="http://localhost:8080/showCategories">Sort by Tags</a>
     </footer>
+    <script src="./js/Ajax.js"></script>
 </body>
 </html>

@@ -20,13 +20,13 @@ public class ReviewControllerTest {
 	private ReviewController underTest;
 	
 	@Mock
-	private Category category;
+	private Tag category;
 	
 	@Mock
-	private Category anotherCategory;
+	private Tag anotherCategory;
 	
 	@Mock
-	private CategoryRepository categoryRepo;
+	private TagRepository categoryRepo;
 	
 	@Mock
 	private Review review;
@@ -46,7 +46,7 @@ public class ReviewControllerTest {
 	}
 		
 	@Test
-	public void shouldAddSingleCategoryToModel() throws CategoryNotFoundException {
+	public void shouldAddSingleCategoryToModel() throws TagNotFoundException {
 		long courseId = 1;
 		when(categoryRepo.findById(courseId)).thenReturn(Optional.of(category));
 		
@@ -56,7 +56,7 @@ public class ReviewControllerTest {
 	
 	@Test
 	public void shouldAddAllCategoriesToModel() {
-		Collection<Category> allCategories = Arrays.asList(category, anotherCategory);
+		Collection<Tag> allCategories = Arrays.asList(category, anotherCategory);
 		when(categoryRepo.findAll()).thenReturn(allCategories);
 		
 		underTest.findAllCategories(model);
